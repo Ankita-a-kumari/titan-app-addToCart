@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 import { CommonService } from '../common.service';
+import { Router } from '../../../../node_modules/@angular/router';
+import {NgbModal, NgbModalRef, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,16 @@ import { CommonService } from '../common.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private commonService:CommonService) {}
+  @ViewChild('myModal1') modal!:ElementRef<any>;
+  modalRef!:NgbModalRef;
+  modalOptions:NgbModalOptions;
+
+  constructor(private commonService:CommonService, private router:Router,private modalService:NgbModal) {
+    this.modalOptions = {
+      backdrop:'static',
+      backdropClass:'customBackdrop'
+    }
+  }
 
   ngOnInit(): void {}
 
@@ -74,8 +85,21 @@ export class HomeComponent implements OnInit {
 
   addToCartItems(items:any)
   {
-this.commonService.storeItems(items);
+    let login=localStorage.getItem('token')
+    if(login)
+    {
+      this.commonService.storeItems(items);
+    }
+else {
+this.modalRef=this.modalService.open(this.modal,this.modalOptions)
+
+}
   }
 
+naviatetoLogin()
+{
+  this.router.navigate(['./login']);
+  this.modalRef.dismiss('navigated tologin')
 
+}
 }

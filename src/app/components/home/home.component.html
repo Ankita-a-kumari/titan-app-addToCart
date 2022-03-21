@@ -10,7 +10,7 @@
       <div class="card mt-2 card-style" style="width: 18rem">
         <img class="card-img-top img1" [src]="items.img" />
         <div class="card-body">
-          <h5 class="card-title card-name">{{ items.title }}</h5>
+          <h5 class="card-title card-name">{{ items.title |elipses:20:'...' }}</h5>
           <p class="card-text sale">
             <del class="offer">{{ items.price }}</del>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ items.sale }}
             <i style="cursor: pointer;" (click)="addToCartItems(items)" class="fa fa-shopping-cart"></i>
@@ -21,7 +21,22 @@
   </div>
 </div>
 
-
+<ng-template #myModal1 let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">INFORMATION</h4>
+  
+  <button type="button" class="close"  aria-label="Close" (click)="modal.dismiss('cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+Please sign in to continue.
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="naviatetoLogin()">Continue</button>
+      
+  </div>
+</ng-template>
 <!-- CONTACT DETAILS -->
 <!-- <hr> -->
 <!-- <div class="container">

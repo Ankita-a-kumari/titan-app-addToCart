@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonService } from '../common.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   token: any;
-  constructor(private router: Router) {}
+  constructor(private router: Router , private commonService:CommonService) {}
 
   ngOnInit(): void {}
   loading = false;
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
       if (this.email == storageemail && this.password == storagepassword) {
         this.login = 'Login Successful';
         this.loading = true;
-
+        
         setTimeout(() => {
           this.router.navigate(['/home']);
         }, 2000);

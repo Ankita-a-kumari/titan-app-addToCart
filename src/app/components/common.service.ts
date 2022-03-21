@@ -15,4 +15,6 @@ export class CommonService {
     {
 this.addToCartItems.push(items);
     }
+
+    
 }
